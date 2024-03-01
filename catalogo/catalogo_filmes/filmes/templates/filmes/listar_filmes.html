@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listar Filmes</title>
+    {% load static %}
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .actions {
+            white-space: nowrap; /* Impede que os links quebrem em várias linhas */
+        }
+
+        .actions a {
+            margin-right: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Listar Filmes</h2>
+
+        <!-- Formulário de filtro e ordenação -->
+        <form method="get">
+            <h3>Filtrar por Gênero</h3>{{ form.filtro_genero }}
+            <h3>Filtrar por Diretor</h3>{{ form.filtro_diretor }}
+            <h3>Ordenar</h3>{{ form.ordenar_por }}
+            <button type="submit">Aplicar Filtro/Ordenação</button>
+        </form>
+
+        <!-- Tabela de Filmes -->
+        <table>
+            <thead>
+                <tr>
+                    <th><a href="?ordenar_por=titulo">Título</a></th>
+                    <th><a href="?ordenar_por=ano_lancamento">Ano de Lançamento</a></th>
+                    <th><a href="?ordenar_por=genero">Gênero</a></th>
+                    <th><a href="?ordenar_por=diretor">Diretor</a></th>
+                    <th>Ações</th>  <!-- Nova coluna para ações -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for filme in filmes %}
+                    <tr>
+                        <td>{{ filme.titulo }}</td>
+                        <td>{{ filme.ano_lancamento }}</td>
+                        <td>{{ filme.genero }}</td>
+                        <td>{{ filme.diretor }}</td>
+                        <td class="actions">
+                            <a href="{% url 'excluir_filme' filme.id %}" onclick="return confirm('Tem certeza que deseja excluir este filme?')">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

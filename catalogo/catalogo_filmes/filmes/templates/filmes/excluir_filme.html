@@ -1,0 +1,82 @@
+<!-- Em filmes/templates/filmes/excluir_filme.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excluir Filme</title>
+    {% load static %}
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            color: #007BFF;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 5px;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="form-title">Excluir Filme</h2>
+        <p>Tem certeza que deseja excluir o filme "{{ filme.titulo }}"?</p>
+        <form method="post" action="{% url 'excluir_filme' filme.id %}">
+            {% csrf_token %}
+            <div class="button-container">
+                <button type="submit" class="submit-button">Confirmar Exclusão</button>
+                <a href="{% url 'listar_filmes' %}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
